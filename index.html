@@ -28,18 +28,22 @@
     background: white;
     z-index: 1;
     display: flex;
-    flex-direction: column; /* 縦並びにする */
-    justify-content: space-between; /* 上と下に配置 */
-    align-items: center; /* 中央寄せ */
-    padding: 20px;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
   }
-  .overlay img {
-    max-width: 100%;
-    cursor: pointer;
+  /* 中央の画像（全画面） */
+  .overlay img.fullscreen {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* 画像を歪ませず全画面 */
     display: none;
   }
+  /* 下の画像（横だけ全画面） */
   .overlay img.bottom {
-    max-width: 50%; /* 下の画像は小さめに */
+    width: 100%;
+    height: auto;
+    display: none;
   }
 </style>
 </head>
@@ -48,7 +52,7 @@
 <video id="video" src="114514.mp4" loop preload="auto"></video>
 
 <div class="overlay" id="overlay">
-  <img src="114514.png" alt="Start" id="startImage">
+  <img src="114514.png" alt="Start" id="startImage" class="fullscreen">
   <img src="810.png" alt="Extra" id="extraImage" class="bottom">
 </div>
 
@@ -58,7 +62,6 @@ const video = document.getElementById("video");
 const startImage = document.getElementById("startImage");
 const extraImage = document.getElementById("extraImage");
 
-// 最初に表示されるタイミング
 setTimeout(() => {
   startImage.style.display = "block";
   extraImage.style.display = "block";
@@ -87,7 +90,7 @@ window.addEventListener("resize", () => {
 
 window.addEventListener("beforeunload", function (event) {
   event.preventDefault();
-  event.returnValue = ""; // ChromeやEdgeで必須
+  event.returnValue = "";
 });
 </script>
 
