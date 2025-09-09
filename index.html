@@ -48,10 +48,10 @@
     border-top: 2px solid #000;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     padding: 15px;
-    font-size: 14px;
-    cursor: pointer; /* クリックできるように */
+    cursor: pointer;
+    box-sizing: border-box;
   }
 
   .cookie-text {
@@ -60,10 +60,24 @@
     line-height: 1.5;
   }
 
+  /* 見出し部分だけ大きく */
+  .cookie-text .heading {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  /* 本文部分は小さく */
+  .cookie-text .body {
+    font-size: 12px;
+  }
+
   .cookie-buttons {
     display: flex;
     flex-direction: column;
     gap: 8px;
+    flex-shrink: 0;
   }
 
   .cookie-buttons button {
@@ -87,10 +101,13 @@
   <!-- 下部バナー -->
   <div class="cookie-banner" id="cookieBanner">
     <div class="cookie-text">
-      クッキーとトラッキング<br>
-      「同意する」をクリックすると、当社および932社のパートナーが、お客様のデバイスにCookie内の固有IDなどの情報を保存および／またはアクセスして個人データを処理することに同意したことになります<br>。以下のリンクをクリックすると、<br>
-      正当な利益に基づく利用に異議を申し立てる権利を含め、お客様の選択を承認または管理できます。同意の撤回や選択の管理は、設定またはCookieマネージャーからいつでも行うことができます。詳しくは、当社のプライバシーポリシーをご覧ください。<br>
-      お客様の選択はパートナーに通知されますが、閲覧データには影響しません。
+      <span class="heading">クッキーとトラッキング</span>
+      <span class="body">
+        「同意する」をクリックすると、当社および932社のパートナーが、お客様のデバイスにCookie内の固有IDなどの情報を保存および／またはアクセスして個人データを処理することに同意したことになります。<br>
+        以下のリンクをクリックすると、正当な利益に基づく利用に異議を申し立てる権利を含め、お客様の選択を承認または管理できます。<br>
+        同意の撤回や選択の管理は、設定またはCookieマネージャーからいつでも行うことができます。詳しくは、当社のプライバシーポリシーをご覧ください。<br>
+        お客様の選択はパートナーに通知されますが、閲覧データには影響しません。
+      </span>
     </div>
     <div class="cookie-buttons">
       <button class="agree">同意する</button>
