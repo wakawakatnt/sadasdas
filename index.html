@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>企業説明</title>
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+    background: black;
+  }
+  video {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+    background: black;
+  }
+  .overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: white;
+    z-index: 1;
+    display: flex;
+    flex-direction: column; /* 縦並びにする */
+    justify-content: space-between; /* 上と下に配置 */
+    align-items: center; /* 中央寄せ */
+    padding: 20px;
+  }
+  .overlay img {
+    max-width: 100%;
+    cursor: pointer;
+    display: none;
+  }
+  .overlay img.bottom {
+    max-width: 50%; /* 下の画像は小さめに */
+  }
+</style>
+</head>
+<body>
+
+<video id="video" src="114514.mp4" loop preload="auto"></video>
+
+<div class="overlay" id="overlay">
+  <img src="114514.png" alt="Start" id="startImage">
+  <img src="810.png" alt="Extra" id="extraImage" class="bottom">
+</div>
+
+<script>
+const overlay = document.getElementById("overlay");
+const video = document.getElementById("video");
+const startImage = document.getElementById("startImage");
+const extraImage = document.getElementById("extraImage");
+
+// 最初に表示されるタイミング
+setTimeout(() => {
+  startImage.style.display = "block";
+  extraImage.style.display = "block";
+}, 500);
+
+async function startVideo() {
+  try {
+    overlay.style.display = "none";
+    video.volume = 1.0;
+    await video.play();
+    const elem = document.documentElement;
+    if (elem.requestFullscreen) await elem.requestFullscreen();
+    else if (elem.mozRequestFullScreen) await elem.mozRequestFullScreen();
+    else if (elem.webkitRequestFullscreen) await elem.webkitRequestFullscreen();
+    else if (elem.msRequestFullscreen) await elem.msRequestFullscreen();
+  } catch (err) {
+    console.error("エラー:", err);
+  }
+}
+
+overlay.addEventListener("click", startVideo);
+
+window.addEventListener("resize", () => {
+  video.style.height = `${window.innerHeight}px`;
+});
+
+window.addEventListener("beforeunload", function (event) {
+  event.preventDefault();
+  event.returnValue = ""; // ChromeやEdgeで必須
+});
+</script>
+
+</body>
+</html>
