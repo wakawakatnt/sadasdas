@@ -1,161 +1,195 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>企業説明</title>
-<style>
-  html, body {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    overflow: hidden;
-    background: black;
-  }
-  video {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: 0;
-    background: black;
-  }
-  .overlay {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: white;
-    z-index: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-  }
-  /* 中央の画像（全画面） */
-  .overlay img.fullscreen {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: none;
-  }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>企業説明</title>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+            background: black;
+        }
 
-  /* 下部バナー */
-  .cookie-banner {
-    width: 100%;
-    background: white;
-    color: black;
-    border-top: 2px solid #000;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    padding: 20px 40px; /* 上下 20px、左右 40px */
-    cursor: pointer;
-    box-sizing: border-box;
-    flex-wrap: wrap; /* 中身が多いときに折り返す */
-}
+        video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+            background: black;
+        }
 
-  .cookie-text {
-    flex: 1;
-    margin-right: 20px;
-    line-height: 1.5;
-  }
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: white;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+        }
 
-  /* 見出し部分だけ大きく */
-  .cookie-text .heading {
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 8px;
-    display: block;
-  }
+        /* 中央の画像（全画面） */
+        .overlay img.fullscreen {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none;
+        }
 
-  /* 本文部分は小さく */
-  .cookie-text .body {
-    font-size: 12px;
-  }
+        /* 下部バナー */
+        .cookie-banner {
+            width: 100%;
+            background: white;
+            color: black;
+            border-top: 2px solid #000;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 10px 20px; /* パディングを小さく */
+            cursor: pointer;
+            box-sizing: border-box;
+            flex-wrap: wrap;
+            min-height: 80px; /* 最小高さを設定 */
+            max-height: 120px; /* 最大高さを制限 */
+        }
 
-  .cookie-buttons {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    flex-shrink: 0;
-  }
+        .cookie-text {
+            flex: 1;
+            margin-right: 15px;
+            line-height: 1.3; /* 行間を狭く */
+        }
 
-  .cookie-buttons button {
-    background: black;
-    color: white;
-    border: none;
-    padding: 8px 16px;
-    cursor: pointer;
-    font-size: 14px;
-  }
-</style>
+        /* 見出し部分を小さく */
+        .cookie-text .heading {
+            font-size: 14px; /* 小さく */
+            font-weight: bold;
+            margin-bottom: 4px;
+            display: block;
+        }
+
+        /* 本文部分をさらに小さく */
+        .cookie-text .body {
+            font-size: 10px; /* より小さく */
+            display: block;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .cookie-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            flex-shrink: 0;
+        }
+
+        .cookie-buttons button {
+            background: black;
+            color: white;
+            border: none;
+            padding: 6px 12px; /* ボタンを小さく */
+            cursor: pointer;
+            font-size: 12px; /* フォントサイズを小さく */
+            white-space: nowrap;
+        }
+
+        /* モバイル対応 */
+        @media (max-width: 768px) {
+            .cookie-banner {
+                padding: 8px 15px;
+                flex-direction: column;
+                align-items: stretch;
+                min-height: 100px;
+            }
+            
+            .cookie-text {
+                margin-right: 0;
+                margin-bottom: 8px;
+            }
+            
+            .cookie-buttons {
+                flex-direction: row;
+                justify-content: center;
+                gap: 10px;
+            }
+            
+            .cookie-text .body {
+                font-size: 9px;
+            }
+        }
+    </style>
 </head>
 <body>
-
-<video id="video" src="114514.mp4" loop preload="auto"></video>
-
-<div class="overlay" id="overlay">
-  <!-- 全画面画像 -->
-  <img src="114514.png" alt="Start" id="startImage" class="fullscreen">
-
-  <!-- 下部バナー -->
-  <div class="cookie-banner" id="cookieBanner">
-    <div class="cookie-text">
-      <span class="heading">クッキーとトラッキング</span>
-      <span class="body">
-        「同意する」をクリックすると、当社および932社のパートナーが、お客様のデバイスにCookie内の固有IDなどの情報を保存および／またはアクセスして個人データを処理することに同意したことになります。<br>
-        以下のリンクをクリックすると、正当な利益に基づく利用に異議を申し立てる権利を含め、お客様の選択を承認または管理できます。<br>
-        同意の撤回や選択の管理は、設定またはCookieマネージャーからいつでも行うことができます。詳しくは、当社のプライバシーポリシーをご覧ください。<br>
-        お客様の選択はパートナーに通知されますが、閲覧データには影響しません。
-      </span>
+    <video id="video" src="114514.mp4" loop preload="auto"></video>
+    
+    <div class="overlay" id="overlay">
+        <!-- 全画面画像 -->
+        <img src="114514.png" alt="Start" id="startImage" class="fullscreen">
+        
+        <!-- 下部バナー -->
+        <div class="cookie-banner" id="cookieBanner">
+            <div class="cookie-text">
+                <span class="heading">クッキーとトラッキング</span>
+                <span class="body">
+                    「同意する」をクリックすると、当社および932社のパートナーが、お客様のデバイスにCookie内の固有IDなどの情報を保存および／またはアクセスして個人データを処理することに同意したことになります。以下のリンクをクリックすると、正当な利益に基づく利用に異議を申し立てる権利を含め、お客様の選択を承認または管理できます。同意の撤回や選択の管理は、設定またはCookieマネージャーからいつでも行うことができます。詳しくは、当社のプライバシーポリシーをご覧ください。お客様の選択はパートナーに通知されますが、閲覧データには影響しません。
+                </span>
+            </div>
+            <div class="cookie-buttons">
+                <button class="agree">同意する</button>
+                <button class="manage">Cookieの管理</button>
+            </div>
+        </div>
     </div>
-    <div class="cookie-buttons">
-      <button class="agree">同意する</button>
-      <button class="manage">Cookieの管理</button>
-    </div>
-  </div>
-</div>
 
-<script>
-const overlay = document.getElementById("overlay");
-const video = document.getElementById("video");
-const startImage = document.getElementById("startImage");
-const cookieBanner = document.getElementById("cookieBanner");
+    <script>
+        const overlay = document.getElementById("overlay");
+        const video = document.getElementById("video");
+        const startImage = document.getElementById("startImage");
+        const cookieBanner = document.getElementById("cookieBanner");
 
-setTimeout(() => {
-  startImage.style.display = "block";
-}, 500);
+        setTimeout(() => {
+            startImage.style.display = "block";
+        }, 500);
 
-async function startVideo() {
-  try {
-    overlay.style.display = "none";
-    video.volume = 1.0;
-    await video.play();
-    const elem = document.documentElement;
-    if (elem.requestFullscreen) await elem.requestFullscreen();
-    else if (elem.mozRequestFullScreen) await elem.mozRequestFullScreen();
-    else if (elem.webkitRequestFullscreen) await elem.webkitRequestFullscreen();
-    else if (elem.msRequestFullscreen) await elem.msRequestFullscreen();
-  } catch (err) {
-    console.error("エラー:", err);
-  }
-}
+        async function startVideo() {
+            try {
+                overlay.style.display = "none";
+                video.volume = 1.0;
+                await video.play();
 
-// overlay 全体クリックで動画開始
-overlay.addEventListener("click", startVideo);
-// 下のバーもクリックで動画開始
-cookieBanner.addEventListener("click", startVideo);
+                const elem = document.documentElement;
+                if (elem.requestFullscreen) await elem.requestFullscreen();
+                else if (elem.mozRequestFullScreen) await elem.mozRequestFullScreen();
+                else if (elem.webkitRequestFullscreen) await elem.webkitRequestFullscreen();
+                else if (elem.msRequestFullscreen) await elem.msRequestFullscreen();
+            } catch (err) {
+                console.error("エラー:", err);
+            }
+        }
 
-window.addEventListener("resize", () => {
-  video.style.height = `${window.innerHeight}px`;
-});
+        // overlay 全体クリックで動画開始
+        overlay.addEventListener("click", startVideo);
 
-window.addEventListener("beforeunload", function (event) {
-  event.preventDefault();
-  event.returnValue = "";
-});
-</script>
+        // 下のバーもクリックで動画開始
+        cookieBanner.addEventListener("click", startVideo);
 
+        window.addEventListener("resize", () => {
+            video.style.height = `${window.innerHeight}px`;
+        });
+
+        window.addEventListener("beforeunload", function (event) {
+            event.preventDefault();
+            event.returnValue = "";
+        });
+    </script>
 </body>
 </html>
