@@ -36,15 +36,43 @@
   .overlay img.fullscreen {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* 画像を歪ませず全画面 */
+    object-fit: cover;
     display: none;
   }
-  /* 下の画像（横だけ全画面） */
-  .overlay img.bottom {
+
+  /* 下部バナー */
+  .cookie-banner {
     width: 100%;
-    height: auto;
-    display: none;
-    margin-bottom: 80px
+    background: white;
+    color: black;
+    border-top: 2px solid #000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    font-size: 14px;
+    cursor: pointer; /* クリックできるように */
+  }
+
+  .cookie-text {
+    flex: 1;
+    margin-right: 20px;
+    line-height: 1.5;
+  }
+
+  .cookie-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .cookie-buttons button {
+    background: black;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-size: 14px;
   }
 </style>
 </head>
@@ -53,19 +81,32 @@
 <video id="video" src="114514.mp4" loop preload="auto"></video>
 
 <div class="overlay" id="overlay">
+  <!-- 全画面画像 -->
   <img src="114514.png" alt="Start" id="startImage" class="fullscreen">
-  <img src="810.png" alt="Extra" id="extraImage" class="bottom">
+
+  <!-- 下部バナー -->
+  <div class="cookie-banner" id="cookieBanner">
+    <div class="cookie-text">
+      クッキーとトラッキング<br>
+      「同意する」をクリックすると、当社および932社のパートナーが、お客様のデバイスにCookie内の固有IDなどの情報を保存および／またはアクセスして個人データを処理することに同意したことになります<br>。以下のリンクをクリックすると、<br>
+      正当な利益に基づく利用に異議を申し立てる権利を含め、お客様の選択を承認または管理できます。同意の撤回や選択の管理は、設定またはCookieマネージャーからいつでも行うことができます。詳しくは、当社のプライバシーポリシーをご覧ください。<br>
+      お客様の選択はパートナーに通知されますが、閲覧データには影響しません。
+    </div>
+    <div class="cookie-buttons">
+      <button class="agree">同意する</button>
+      <button class="manage">Cookieの管理</button>
+    </div>
+  </div>
 </div>
 
 <script>
 const overlay = document.getElementById("overlay");
 const video = document.getElementById("video");
 const startImage = document.getElementById("startImage");
-const extraImage = document.getElementById("extraImage");
+const cookieBanner = document.getElementById("cookieBanner");
 
 setTimeout(() => {
   startImage.style.display = "block";
-  extraImage.style.display = "block";
 }, 500);
 
 async function startVideo() {
@@ -83,7 +124,10 @@ async function startVideo() {
   }
 }
 
+// overlay 全体クリックで動画開始
 overlay.addEventListener("click", startVideo);
+// 下のバーもクリックで動画開始
+cookieBanner.addEventListener("click", startVideo);
 
 window.addEventListener("resize", () => {
   video.style.height = `${window.innerHeight}px`;
